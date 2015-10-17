@@ -22,7 +22,7 @@
           {
             background: #428bca;
           }
-
+            
           .item.list-group-item .list-group-image
           {
             margin-right: 10px;
@@ -63,46 +63,60 @@
             margin: 0 0 11px;
           }
         </style>
-	
-                                  <tr>
-                                      <td><a href=" >id }}}">{{ $purchased->ServiceName }}</a ></td>
-                                      <td class="hidden-phone">{{ $purchased->UserName }}</td>
-                                      <td>2015-08-31</td>
-                                      <td><span class="label label-info label-mini">Online</span></td>
-                                      <td>
-                                          <a href="/home/purchased/{{{ $purchased->id }}}" type="button" class="btn btn-red btn-primary btn-xs"><i class="fa fa-pencil"></i></a >
-                                      </td>
-                                  </tr>
-                                  @endforeach
-        <div class="container" style="margin-top: 100px">
-          <div class="well well-sm">
-           <strong>Category</strong>
+<div class="container" style="margin-top: 100px">
+      <div class="well well-sm">
+            <strong>Category</strong>
             <div class="btn-group">
-              <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
-              </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
-                class="glyphicon glyphicon-th"></span>Grid</a>
+                  <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
+                  </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th"></span>Grid</a>
             </div>
-          </div>
+       </div>
 
+      <div id="products" class="row list-group">
 
-          @foreach ($purchase as $purchased)
-          <div id="products" class="row list-group">
+            @foreach ($products as $product)
             <div class="item  col-xs-4 col-lg-4">
-              <div class="thumbnail">
-                  <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                  <div class="thumbnail">
+                  <img class="group list-group-image" src="{{ $product->pic }}" alt="" />
                   <div class="caption">
                     <h4 class="group inner list-group-item-heading">
-                        Product title</h4>
+                        {{ $product->name }}
+                    </h4>
                     <p class="group inner list-group-item-text">
-                        Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                        sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                        {{ $product->desc }}    
+                    </p>
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
                           <p class="lead">
-                              $21.000</p>
+                              C ${{ $product->price }}</p>
                         </div>
                         <div class="col-xs-12 col-md-6">
-                            <a class="btn btn-success" href="http://www.jquery2dotnet.com">加入购物车</a>
+                            
+                            <form id="cart-form" action="{{ url('/cart/add') }}" method="POST">
+                              
+                              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                              <div class="form-group">
+                                <div class="row">
+                                  <div class="col-sm-8 col-sm-offset-3">
+                                    <label>Quantity</label>
+                                    <input type="text" name="quantity" id="quantity" class="form-control" value="1">
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <input type="hidden" name="productId" value="{{ $product->id }}">
+
+                              <div class="form-group">
+                                <div class="row">
+                                  <div class="col-sm-8 col-sm-offset-3">
+                                    <input type="submit" name="cart-submit" id="cart-submit" class="form-control btn btn-success" value="加入购物车">
+                                  </div>
+                                </div>
+                              </div>
+
+                            </form>
+
                         </div>
                     </div>
                   </div>
@@ -110,111 +124,7 @@
           </div>
           @endforeach
 
-          <div class="item  col-xs-4 col-lg-4">
-            <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
-                <div class="caption">
-                  <h4 class="group inner list-group-item-heading">
-                      Product title</h4>
-                  <p class="group inner list-group-item-text">
-                      Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                      sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                  <div class="row">
-                      <div class="col-xs-12 col-md-6">
-                        <p class="lead">
-                            $21.000</p>
-                      </div>
-                      <div class="col-xs-12 col-md-6">
-                          <a class="btn btn-success" href="http://www.jquery2dotnet.com">加入购物车</a>
-                      </div>
-                  </div>
-                </div>
-            </div>
-          </div>
-          <div class="item  col-xs-4 col-lg-4">
-            <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
-                <div class="caption">
-                  <h4 class="group inner list-group-item-heading">
-                      Product title</h4>
-                  <p class="group inner list-group-item-text">
-                      Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                      sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                  <div class="row">
-                      <div class="col-xs-12 col-md-6">
-                        <p class="lead">
-                            $21.000</p>
-                      </div>
-                      <div class="col-xs-12 col-md-6">
-                          <a class="btn btn-success" href="http://www.jquery2dotnet.com">加入购物车</a>
-                      </div>
-                  </div>
-                </div>
-            </div>
-          </div>
-        <div class="item  col-xs-4 col-lg-4">
-            <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
-                <div class="caption">
-                    <h4 class="group inner list-group-item-heading">
-                        Product title</h4>
-                    <p class="group inner list-group-item-text">
-                        Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                        sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                            <p class="lead">
-                                $21.000</p>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                            <a class="btn btn-success" href="http://www.jquery2dotnet.com">加入购物车</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="item  col-xs-4 col-lg-4">
-            <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
-                <div class="caption">
-                    <h4 class="group inner list-group-item-heading">
-                        Product title</h4>
-                    <p class="group inner list-group-item-text">
-                        Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                        sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                            <p class="lead">
-                                $21.000</p>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                            <a class="btn btn-success" href="http://www.jquery2dotnet.com">加入购物车</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="item  col-xs-4 col-lg-4">
-            <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
-                <div class="caption">
-                    <h4 class="group inner list-group-item-heading">
-                        Product title</h4>
-                    <p class="group inner list-group-item-text">
-                        Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                        sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                            <p class="lead">
-                                $21.000</p>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                            <a class="btn btn-success" href="http://www.jquery2dotnet.com">加入购物车</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
     </div>
 </div>
         

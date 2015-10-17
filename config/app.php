@@ -136,6 +136,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Illuminate\Html\HtmlServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -143,6 +144,13 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        /*
+         * Custome Service Providers....
+         */
+        Zizaco\Entrust\EntrustServiceProvider::class,
+        Laravel\Cashier\CashierServiceProvider::class,
+        Ozanmuyes\Cart\CartServiceProvider::class,
 
     ],
 
@@ -191,7 +199,10 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
-
+        'Entrust' => Zizaco\Entrust\EntrustFacade::class,
+        "Cart" => Ozanmuyes\Cart\Facades\CartFacade::class,
+        'Html'      => Illuminate\Html\HtmlFacade::class,
+        'Form'      => Illuminate\Html\FormFacade::class,
     ],
 
 ];

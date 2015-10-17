@@ -12,18 +12,13 @@ class CreatePurchaseModel extends Migration
      */
     public function up()
     {
-        Schema::create('Purchase', function(Blueprint $table)
+        Schema::create('purchases', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->string('ServiceName');
-            $table->string('UserName');
-            $table->string('PassWord');
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('orderName');
             $table->timestamps();
         });
     }
-}
 
     /**
      * Reverse the migrations.

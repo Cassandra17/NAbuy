@@ -53,7 +53,6 @@ class PurchasedShow extends Controller
         //
         return view('gallery', compact('purchased'));
     }
-    }
 
     /**
      * Show the form for editing the specified resource.

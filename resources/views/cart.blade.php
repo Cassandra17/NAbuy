@@ -50,38 +50,62 @@
                         <th style="width:10%"></th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody> 
+                      @foreach ($carts as $product)
                       <tr>
                         <td data-th="Product">
                           <div class="row">
-                            <div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
+                            <!-- <div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div> -->
                             <div class="col-sm-10">
-                              <h4 class="nomargin">Product 1</h4>
-                              <p>Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet.</p>
+                              <h4 class="nomargin">{{ $product->name }}</h4>
+                              <p>{{$product->attributes->desc}}</p>
                             </div>
                           </div>
                         </td>
-                        <td data-th="Price">$1.99</td>
+                        <td data-th="Price">C$ {{ $product->price }}</td>
+                        <form action="/cart/update/{{{ $product->id }}}" method="POST">
                         <td data-th="Quantity">
-                          <input type="number" class="form-control text-center" value="1" min="1">
+                          <input type="number" name="newQuantity" class="form-control text-center" value="{{ $product->quantity }}" min="1">
+                          <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         </td>
-                        <td data-th="Subtotal" class="text-center">1.99</td>
+                        <td data-th="Subtotal" class="text-center">{{ $product->quantity * $product->price }}</td>
                         <td class="actions" data-th="">
-                          <button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
-                          <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>                
+                          <button type="submit" class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
+                          <a href="/cart/remove/{{{ $product->id }}}" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button> 
+                        </form>               
                         </td>
                       </tr>
+                      @endforeach
                     </tbody>
                     <tfoot>
+
                       <tr class="visible-xs">
-                        <td class="text-center"><strong>Total 1.99</strong></td>
+                        <td class="text-center"><strong>Total {{ Cart::getTotal() }}</strong></td>
                       </tr>
+
                       <tr>
-                        <td><a href="mainpage.html" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
-                        <td colspan="2" class="hidden-xs"></td>
-                        <td class="hidden-xs text-center"><strong>Total $1.99</strong></td>
-                        <td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+                        <td><a href="{{ url('/') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+                        <td><a href="{{ url('/cart/clear') }}" class="btn btn-danger"> Empty Shopping Cart</a></td>
+                        <td colspan="1" class="hidden-xs"></td>
+                        <td class="hidden-xs text-center"><strong>Total {{ Cart::getTotal() }}</strong></td>
+                        <td>
+                          <form action="{{ url('/payment') }}" method="POST" role="form" id="PaymentForm">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                            <input type="hidden" name="price" id="price" value="{{ Cart::getTotal() }}">
+                            <input type="hidden" id="stripeToken" name="stripeToken"/>
+                            <input type="hidden" id="stripeEmail" name="stripeEmail"/>
+
+                          </form>
+                          <button class="btn btn-success btn-block" id="customerPayButton">Checkout <i class="fa fa-angle-right"></i></button>
+
+                        </td>
                       </tr>
                     </tfoot>
           </table>
         </div>
+
+@section('script')
+  <script src="https://checkout.stripe.com/checkout.js"></script>
+  <script src="{{{asset('./js/stripe.js')}}}"></script>-
+@endsection

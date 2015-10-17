@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Cart;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -28,65 +29,37 @@ class PaymentController extends Controller
 
     public function postBuy(Request $request)
     {
+        $subtotal = (float) Cart::getTotal() * 100;
+
         $user = \App\User::find(1);
 
-        $user->charge($request->get('price'), [
-            //'source' => $request->get('StripeToken'),
+        $user->charge($subtotal, [
             'source' => $request->get('stripeToken'),
             'receipt_email' => $user->email,
         ]);
 
-        $services = new \App\Services;
-        $services->Username = $request->get('account');
-        $services->Attribute = "MD5-Password";
-        $services->op = ":=";
-        $services->Value = md5($request->get('password'));
 
-        $services->save();
-        
+        $purchase = new \App\Purchase;
+        $purchase->orderName = md5($request->get('stripeToken'));
 
+        $purchase->save();
 
-        $purchesed = new \App\Purchese;
-        $purchesed->Username = $request->get('account');
-        $purchesed->PassWord = $request->get('password');
-        $purchesed->user_id = $user->id;
+        $itemsArray = array();
+        $cartItems = Cart::getContent()->toArray();
 
-        // 3000 半年套餐 - Half Year $30 USD
-        // 5000 一年套餐 - One Year $50 USD (半年后可换海龟套餐)
-        // 9000 两年套餐 - Two Year $90 USD (可随时切换海龟套餐)
-        // 8800 一年双套餐 - One Year With Project Beijing $88 USD (推荐)
+        $item = \App\Purchase::where('orderName', md5($request->get('stripeToken')))->first();
 
-        // if ($request->get('price') == 3000) 
-        // {
-        //     $serviceNameSet = "云端套餐 30 USD 半年套餐";
-        // }
+        foreach ($cartItems as $cartItem){
 
-        // if ($request->get('price') == 5000) 
-        // {
-        //     $serviceNameSet = "云端套餐 50 USD 一年套餐";
-        // }
+            
+            $item->purchases()->attach($cartItem['id'], ['quantity' => (string) $cartItem['quantity'] ]);
+        }
 
-        // if ($request->get('price') == 9000) 
-        // {
-        //     $serviceNameSet = "云端套餐 90 USD 两年套餐";
-        // }
+        $item->users()->attach($user->id);
 
-        // if ($request->get('price') == 8800) 
-        // {
-        //     $serviceNameSet = "云端海龟套餐 88 USD 一年套餐";
-        // }
-
-        $purchesed->ServiceName = $serviceNameSet;
-        $purchesed->save();
-
-        return redirect($this->homePath());
-
+        return redirect('/');
     }    
 
-    //     public function homePath()
-    // {
-    //     return property_exists($this, 'homePath') ? $this->homePath : '/home';
-    // }
 
     /**
      * Show the form for creating a new resource.
