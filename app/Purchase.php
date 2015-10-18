@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Laracasts\Presenter\PresentableTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Purchase extends Model
@@ -12,6 +13,10 @@ class Purchase extends Model
      * @var array
      */
     protected $fillable = ['orderName'];
+
+    use PresentableTrait;
+    
+    public $presenter = 'App\PurchasePresenter';
 
     public function purchases()
     {

@@ -122,7 +122,9 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function() {
 		
 	});
 	Route::get('/manageUsers', function(){
-		return "Hello World";
+		//$users = DB::table('users')->select('id', 'name', 'email')->get();
+		$users = \App\User::get();
+		return view('admin.users.usersList', compact('users'));
 	});
 
 	Route::get('/addRole', function(){
@@ -156,14 +158,14 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function() {
 	]);
 
 	Route::get('/addCategory', function(){
-		
+	
 	});
 	Route::get('/editCategory', function(){
 		
 	});
 
-	Route::get('/orderList', function(){
-		return "Hello World";
-	});
+	Route::get('/orderList', [
+		'uses' => 'PurchasedShow@index'
+	]);
 
 });

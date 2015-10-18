@@ -16,7 +16,9 @@ class PurchasedShow extends Controller
      */
     public function index()
     {
-        //
+        $orders = \App\Purchase::get();
+        
+        return view('admin.orders.ordersList', compact('orders'));
     }
 
     /**
