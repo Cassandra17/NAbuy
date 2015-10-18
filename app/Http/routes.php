@@ -48,7 +48,7 @@ Route::get('/payment/executePayment', [
 	'uses' => 'PaymentController@executePayment'
 ]);
 
-Route::get('/gallery', [
+Route::get('/gallery/{id}', [
     	'uses' => 'ProductController@index'
 ]);
 
@@ -134,10 +134,9 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function() {
 		
 	});
 
-	Route::get('/addProduct', function(){
-		return view('admin.products.addProducts');
-		
-	});
+	Route::get('/addProduct', [
+		'uses' => 'ProductController@create'
+	]);
 	Route::get('/viewProducts', function(){
 		$products = \App\Product::get();
        		return view('admin.products.listProducts', compact('products'));
@@ -158,14 +157,27 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function() {
 	]);
 
 	Route::get('/addCategory', function(){
-	
+		return view('admin.products.categoryCreate');
 	});
 	Route::get('/editCategory', function(){
 		
 	});
+
+	Route::post('/category/add', [
+		'uses' => 'ProductController@categoryCreate'
+
+	]);
 
 	Route::get('/orderList', [
 		'uses' => 'PurchasedShow@index'
 	]);
 
 });
+
+// Password reset link request routes...
+Route::get('password/email', 'Auth\PasswordController@getEmail');
+Route::post('password/email', 'Auth\PasswordController@postEmail');
+
+// Password reset routes...
+Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+Route::post('password/reset', 'Auth\PasswordController@postReset');

@@ -22,6 +22,11 @@
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                                         <div class="form-group">
+                                            {!! Form::label('category','产品分类') !!}
+                                            {!! Form::select('category_id', $categories, null, ['class'=>'form-control' ]) !!}
+                                        </div>
+
+                                        <div class="form-group">
                                             {!! Form::label('product_name','商品名称') !!}
                                             {!! Form::text('product_name', null, ['class'=>'form-control', 'placeholder'=>"输入商品名称信息"])!!}
                                         </div>

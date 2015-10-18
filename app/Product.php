@@ -13,6 +13,11 @@ class Product extends Model
      */
     protected $fillable = ['name', 'desc', 'price','pic'];
 
+    public function category()
+    {
+        return $this->belongsTo('\App\Category');
+    }
+
     public static function relationArrayWithCache()
     {
         return \Cache::remember('all_purchased_products', $minutes = 60, function()

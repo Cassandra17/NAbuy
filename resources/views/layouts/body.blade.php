@@ -15,31 +15,32 @@
           <ul class="nav navbar-nav">
            
             <li class="dropdown">
-                  <a href="{{url('/gallery')}}">新品上市</a>
+                  <a href="{{url('/gallery/100')}}">新品上市</a>
             </li>  
 
             <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">美食围城<span class="caret"></span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="{{url('/gallery')}}">锦绣中华</a></li>
-                    <li><a href="{{url('/gallery')}}">富士山下</a></li>
+                    <li><a href="{{url('/gallery/1')}}">锦绣中华</a></li>
+                    <li><a href="{{url('/gallery/2')}}">富士山下</a></li>
                   </ul>
             </li>          
 
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">名品会所<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="{{url('/gallery')}}">中国专区</a></li>
-                <li><a href="{{url('/gallery')}}">日本专区</a></li>
+                <li><a href="{{url('/gallery/3')}}">中国专区</a></li>
+                <li><a href="{{url('/gallery/4')}}">日本专区</a></li>
+                <li><a href="{{url('/gallery/5')}}">欧洲专区</a></li>
              </ul>
             </li>        
 
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">健康驿站<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="{{url('/gallery')}}">樱花公园</a></li>
-                <li><a href="{{url('/gallery')}}">澳洲海岸</a></li>
-                <li><a href="{{url('/gallery')}}">欧美广场</a></li>
+                <li><a href="{{url('/gallery/21')}}">樱花公园</a></li>
+                <li><a href="{{url('/gallery/22')}}">澳洲海岸</a></li>
+                <li><a href="{{url('/gallery/23')}}">欧美广场</a></li>
              </ul>
             </li>        
 
@@ -92,7 +93,7 @@
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="js/bootstrap.min.js"></script>
+        <script src="{{{asset('js/bootstrap.min.js')}}}"></script>
         <script>
           $(document).ready(function() {
             $('#list').click(function(event){event.preventDefault();$('#products .item').addClass('list-group-item');});
@@ -100,16 +101,16 @@
           });
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-        <script src="{{{asset('./jquery.rondell-master/examples/demohelpers.js')}}}"></script>
-        <script type="{{{asset('./text/javascript')}}}"></script>
-        <script src="{{{asset('./dist/js/jquery.magnify.js')}}}"></script>
+        <script src="{{{asset('/jquery.rondell-master/examples/demohelpers.js')}}}"></script>
+        <script type="{{{asset('/text/javascript')}}}"></script>
+        <script src="{{{asset('/dist/js/jquery.magnify.js')}}}"></script>
         <script>
           $(document).ready(function() {
             $('img').magnify();
           });
         </script>
-        <script src="libs/modernizr-2.0.6.min.js"></script>
-        <script src="libs/jquery.mousewheel-3.0.6.min.js"></script>
-        <script src="dist/jquery.rondell.js"></script>
+        <script src="{{{asset('libs/modernizr-2.0.6.min.js')}}}"></script>
+        <script src="{{{asset('libs/jquery.mousewheel-3.0.6.min.js')}}}"></script>
+        <script src="{{{asset('dist/jquery.rondell.js')}}}"></script>
         @yield('script')
     

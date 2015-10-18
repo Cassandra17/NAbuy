@@ -65,7 +65,7 @@
         </style>
 <div class="container" style="margin-top: 100px">
       <div class="well well-sm">
-            <strong>Category</strong>
+            <strong>{{ $category->name }}</strong>
             <div class="btn-group">
                   <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
                   </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th"></span>Grid</a>

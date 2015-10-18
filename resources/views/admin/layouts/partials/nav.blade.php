@@ -69,6 +69,9 @@
                             <a href="#"><i class="fa fa-edit fa-fw"></i> Products<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
+                                    <a href="{{url('/admin/addCategory')}}">Add Category</a>
+                                </li>
+                                <li>
                                     <a href="{{url('/admin/addProduct')}}">Add Products</a>
                                 </li>
                                 <li>

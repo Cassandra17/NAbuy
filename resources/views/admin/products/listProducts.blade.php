@@ -15,6 +15,7 @@
                                         <tr>
                                             <th>图片</th>
                                             <th>名称</th>
+                                            <th>分类</th>
                                             <th>简介</th>
                                             <th>价格</th>
                                             <th>管理操作</th>
@@ -27,6 +28,7 @@
                                         <tr>
                                             <td><img class="group list-group-image" src="../{{ $product->pic }}" alt="" /></td>
                                             <td>{{ $product->name }}</td>
+                                            <td>{{ $product->category->categoryName}}</td>
                                             <td>{{ $product->desc }} </td>
                                             <td class="center">C ${{ $product->price }}</td>
                                             <td class="center">

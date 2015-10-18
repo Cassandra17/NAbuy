@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\Category;
+use App\Product;
 use App\Http\Controllers\Controller;
 use Input;
 
@@ -14,11 +16,15 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id, Category $category, Product $product)
     {
 
-        $products = \App\Product::get();
-        return view('gallery', compact('products'));
+        // $products = \App\Product::get();
+        // return view('gallery', compact('products'));
+        
+        $category = $category->find($id);
+        $products = $product->where('category_id', $id)->get();
+        return view('gallery', compact('category', 'products'));
     }
 
     /**
@@ -26,9 +32,11 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Category $category)
     {
-        //
+        $categories = $category->lists('categoryName', 'id');
+
+        return view('admin.products.addProducts', compact('categories'));
     }
 
     /**
@@ -62,8 +70,20 @@ class ProductController extends Controller
         $product->name = $request->get('product_name');
         $product->desc = $request->get('product_desc');
         $product->price = $request->get('product_price'); 
+        $product->category()->associate($request->get('category_id'));
 
         $product->save();
+
+        return redirect('/admin');
+    }
+
+    public function categoryCreate(Request $request)
+    {
+        $category = new \App\Category;
+                 
+        $category->categoryName = $request->get('category_name');
+
+        $category->save();
 
         return redirect('/admin');
     }

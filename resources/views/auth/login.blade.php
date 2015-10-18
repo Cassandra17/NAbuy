@@ -30,6 +30,7 @@
 
             <div class="row">
               <div class="col-lg-12">
+                
                 <form id="login-form" action="{{ url('/user/login') }}" method="post" role="form" style="display: block;">
 
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -55,7 +56,7 @@
                     <div class="row">
                       <div class="col-lg-12">
                         <div class="text-center">
-                          <a href="http://phpoll.com/recover" tabindex="5" class="forgot-password">忘记密码？</a>
+                          <a href="{{url('password/email')}}" tabindex="5" class="forgot-password">忘记密码？</a>
                         </div>
                       </div>
                     </div>
